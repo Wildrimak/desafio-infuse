@@ -1,6 +1,6 @@
 package com.wildrimak.credit_score.domain.services;
 
-import com.wildrimak.credit_score.domain.exceptions.NumeroCreditoNaoEncontrado;
+import com.wildrimak.credit_score.domain.exceptions.NumeroCreditoNaoEncontradoException;
 import com.wildrimak.credit_score.domain.models.Credito;
 import com.wildrimak.credit_score.domain.repositories.CreditoRepository;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class CreditoServiceImpl implements CreditoService {
     public Credito getCredito(String numeroCredito) {
         return creditoRepository
                 .findByNumeroCredito(numeroCredito)
-                .orElseThrow(() -> new NumeroCreditoNaoEncontrado(numeroCredito));
+                .orElseThrow(() -> new NumeroCreditoNaoEncontradoException(numeroCredito));
     }
 
 }

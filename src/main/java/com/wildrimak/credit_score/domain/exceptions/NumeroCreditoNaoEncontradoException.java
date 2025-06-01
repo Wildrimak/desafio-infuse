@@ -1,10 +1,10 @@
 package com.wildrimak.credit_score.domain.exceptions;
 
-public class NumeroCreditoNaoEncontrado extends RuntimeException {
+public class NumeroCreditoNaoEncontradoException extends RuntimeException {
 
     private final String numeroCredito;
 
-    public NumeroCreditoNaoEncontrado(String numeroCredito) {
+    public NumeroCreditoNaoEncontradoException(String numeroCredito) {
         super("Número de crédito '" + numeroCredito + "' não encontrado.");
         this.numeroCredito = numeroCredito;
     }
