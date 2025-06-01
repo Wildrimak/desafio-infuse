@@ -9,3 +9,25 @@ services:
       POSTGRES_DB: credit-score-dev
     ports:
       - "5432:5432"
+    networks:
+      - credit-score-net
+
+  app:
+    image: credit-score-app
+    container_name: credit_score_app
+    build:
+      context: ..
+    depends_on:
+      - database-dev
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database-dev:5432/credit-score-dev
+      SPRING_DATASOURCE_USERNAME: wildrimak
+      SPRING_DATASOURCE_PASSWORD: dificil
+    ports:
+      - "8081:8080"
+    networks:
+      - credit-score-net
+
+networks:
+  credit-score-net:
+    driver: bridge
