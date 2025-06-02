@@ -12,6 +12,35 @@ services:
     networks:
       - credit-score-net
 
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.9.1
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    networks:
+      - credit-score-net
+
+  kafka:
+    image: confluentinc/cp-kafka:7.9.1
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - credit-score-net
+
   app:
     image: credit-score-app
     container_name: credit_score_app
@@ -19,14 +48,16 @@ services:
       context: ..
     depends_on:
       - database-dev
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://database-dev:5432/credit-score-dev
-      SPRING_DATASOURCE_USERNAME: wildrimak
-      SPRING_DATASOURCE_PASSWORD: dificil
+      - kafka
     ports:
       - "8081:8080"
     networks:
       - credit-score-net
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database-dev:5432/credit-score-dev
+      SPRING_DATASOURCE_USERNAME: wildrimak
+      SPRING_DATASOURCE_PASSWORD: dificil
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
 
 networks:
   credit-score-net:
