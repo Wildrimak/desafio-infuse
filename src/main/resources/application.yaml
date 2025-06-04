@@ -14,3 +14,6 @@ spring:
 messaging:
   topics:
     consultas: creditos-consultas
+
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200}
