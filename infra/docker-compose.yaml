@@ -58,7 +58,7 @@ services:
       SPRING_DATASOURCE_USERNAME: wildrimak
       SPRING_DATASOURCE_PASSWORD: dificil
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      CORS_ALLOWED_ORIGINS: http://localhost:80
+      CORS_ALLOWED_ORIGINS: http://localhost
 
   credit-score-web:
     image: credit-score-web
