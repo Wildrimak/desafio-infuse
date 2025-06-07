@@ -18,6 +18,8 @@
 		<postgresql.version>42.7.6</postgresql.version>
 		<flyway.version>11.8.2</flyway.version>
 		<org.mapstruct.version>1.6.3</org.mapstruct.version>
+		<rest-assured.version>5.5.5</rest-assured.version>
+		<h2.version>2.3.232</h2.version>
 	</properties>
 	<dependencies>
 
@@ -66,11 +68,28 @@
 			<version>${org.mapstruct.version}</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${rest-assured.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
